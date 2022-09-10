@@ -1,0 +1,79 @@
+<h4>{{title}} Project</h4>
+
+<div class="row" *ngIf="msg">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+          <strong>Project Add Successfully!</strong>  
+      </p>
+    </div>
+  </div>
+  <div class="row" *ngIf="updatemsg">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+          <strong>Project Updated Successfully!</strong>  
+      </p>
+    </div>
+  </div>
+  
+<form #projectSubmitForm="ngForm" (ngSubmit)="submitProject(projectSubmitForm)" >
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="pname">Project Name</label>
+    </div>
+    <input type="text" class="form-control" id="pname" name="pname" [(ngModel)]="form.pname" placeholder="Project Name">
+  </div>
+
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <label class="input-group-text" for="ptype">Project Type</label>
+    </div>
+    <select class="custom-select form-control" id="ptype" name="ptype" [(ngModel)]="form.ptype">
+        <option selected>Choose...</option>
+        <option value="Medium">Medium</option>
+        <option value="Large">Large</option>
+        <option value="Extra Large">Extra Large</option>
+      </select>
+  </div>  
+  
+  <div class="input-group mb-3">
+    <div class="input-group-append">
+      <label class="input-group-text" for="ptechnology">Select Technology</label>
+    </div>
+    <select class="custom-select form-control" id="ptechnology" name="ptechnology" [(ngModel)]="form.ptechnology">
+        <option selected>Choose...</option>
+        <option value="php">PHP</option>
+        <option value="java">Java</option>
+        
+      </select>
+  </div>
+  <button type="submit" class="btn btn-primary">{{button}}</button>
+  </form>
+
+
+
+  <hr>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Sr</th>
+        <th scope="col">Project Name</th>
+        <th scope="col">Project Type</th>
+        <th scope="col">Project Technology</th>
+        <th scope="col">Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of getProjectData;let i = index;">
+        <th scope="row">{{i+1}}</th>
+        <td>{{item.pname}}</td>
+        <td>{{item.ptype}}</td>
+        <td>{{item.ptechnology}}</td>
+        <td>
+            <button type="button" class="btn btn-info" (click)="editProject(item.id)">Edit</button>&nbsp;
+            <button type="button" class="btn btn-danger" (click)="deleteProject(item.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
